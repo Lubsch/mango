@@ -1043,6 +1043,7 @@ FuncType parse_func_name(char *func_name, Arg *arg, char *arg_value,
 		(*arg).f = atof(arg_value);
 	} else if (strcmp(func_name, "zoom") == 0) {
 		func = zoom;
+		(*arg).i = atoi(arg_value);
 	} else if (strcmp(func_name, "exchange_client") == 0) {
 		func = exchange_client;
 		(*arg).i = parse_direction(arg_value);

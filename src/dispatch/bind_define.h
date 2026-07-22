@@ -1775,6 +1775,7 @@ int32_t comboview(const Arg *arg) {
 
 int32_t zoom(const Arg *arg) {
 	Client *c = NULL, *sel = arg->tc ? arg->tc : focustop(selmon);
+	int32_t focus = arg->i;
 
 	if (!sel || !selmon ||
 		!selmon->pertag->ltidxs[selmon->pertag->curtag]->arrange ||
@@ -1793,10 +1794,13 @@ int32_t zoom(const Arg *arg) {
 
 	if (!sel)
 		sel = c;
+
 	wl_list_remove(&sel->link);
 	wl_list_insert(&clients, &sel->link);
 
-	focusclient(sel, 1);
+	if (focus)
+		focusclient(sel, 1);
+
 	arrange(selmon, false, false);
 	return 0;
 }
