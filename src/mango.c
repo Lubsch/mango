@@ -4462,8 +4462,7 @@ void keypress(struct wl_listener *listener, void *data) {
 		hidecursor(NULL);
 	}
 
-	/* On _press_ if there is no active screen locker,
-	 * attempt to process a compositor keybinding. */
+	/* Attempt to process a compositor keybinding. */
 	for (i = 0; i < nsyms; i++)
 		handled =
 			keybinding(event->state, locked, mods, syms[i], keycode) || handled;
