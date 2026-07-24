@@ -5293,6 +5293,9 @@ void pointerfocus(Client *c, struct wlr_surface *surface, double sx, double sy,
 				  uint32_t time) {
 	struct timespec now;
 
+	if (cursor_hidden)
+		return;
+
 	if (config.sloppyfocus && !start_drag_window && c && time && c->scene &&
 		c->scene->node.enabled && !c->animation.tagining &&
 		(surface != seat->pointer_state.focused_surface ||
@@ -6774,7 +6777,6 @@ void handlecursoractivity(void) {
 		return;
 
 	cursor_hidden = false;
-
 	if (last_cursor.shape)
 		wlr_cursor_set_xcursor(cursor, cursor_mgr,
 							   wlr_cursor_shape_v1_name(last_cursor.shape));
@@ -6785,6 +6787,8 @@ void handlecursoractivity(void) {
 
 int32_t hidecursor(void *data) {
 	wlr_cursor_unset_image(cursor);
+	if (seat)
+		wlr_seat_pointer_notify_clear_focus(seat);
 	cursor_hidden = true;
 	return 1;
 }
