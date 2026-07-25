@@ -5152,10 +5152,10 @@ void motionnotify(uint32_t time, struct wlr_input_device *device, double dx,
 	}
 
 	if (!scroller_focus_lock || !(c && c->mon && !INSIDEMON(c))) {
-		if (c && c->mon && ISSCROLLTILED(c) && is_scroller_layout(c->mon) &&
-			!INSIDEMON(c)) {
-			should_lock = true;
-		}
+		// if (c && c->mon && ISSCROLLTILED(c) && is_scroller_layout(c->mon) &&
+		// 	!INSIDEMON(c)) {
+		// 	should_lock = true;
+		// }
 
 		if (!((!config.edge_scroller_pointer_focus ||
 			   speed < config.edge_scroller_focus_allow_speed) &&
@@ -6777,6 +6777,9 @@ void handlecursoractivity(void) {
 		return;
 
 	cursor_hidden = false;
+
+    motionnotify(0, NULL, 0, 0, 0, 0);
+
 	if (last_cursor.shape)
 		wlr_cursor_set_xcursor(cursor, cursor_mgr,
 							   wlr_cursor_shape_v1_name(last_cursor.shape));
